@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://xjcjd36s16rg"]
+
+[ext_resource type="Shader" uid="uid://t440eirfnlrq" path="res://overlay.gdshader" id="1_a6pgi"]
+
+[resource]
+shader = ExtResource("1_a6pgi")
