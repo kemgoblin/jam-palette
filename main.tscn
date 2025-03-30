@@ -1,0 +1,102 @@
+[gd_scene load_steps=6 format=3 uid="uid://cj63n5d78s6yw"]
+
+[ext_resource type="Script" uid="uid://dn0yhh1ltnb58" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="Material" uid="uid://xjcjd36s16rg" path="res://overlay_material.tres" id="2_0xm2m"]
+
+[sub_resource type="Gradient" id="Gradient_0xm2m"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_h2yge"]
+gradient = SubResource("Gradient_0xm2m")
+width = 8
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_0xm2m"]
+viewport_path = NodePath("PaletteViewport")
+
+[node name="Main" type="MarginContainer" node_paths=PackedStringArray("viewport", "texture_rect", "color_container", "color_picker", "add_color_button", "save_image_button", "overlay_toggle")]
+clip_contents = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ig7tw")
+colors = Array[Color]([Color(0.7, 0.373333, 0.14, 1), Color(0.457333, 0.7, 0.14, 1), Color(0.345333, 0.14, 0.7, 1), Color(0.5, 0.5, 0.5, 1)])
+viewport = NodePath("PaletteViewport")
+texture_rect = NodePath("PaletteViewport/MarginContainer/Texture")
+color_container = NodePath("UI/Colors/ScrollContainer/VBoxContainer")
+color_picker = NodePath("UI/Stuff/ColorPicker")
+add_color_button = NodePath("UI/Colors/AddColor")
+save_image_button = NodePath("UI/Stuff/SaveImage")
+overlay_toggle = NodePath("UI/Stuff/OverlayToggle")
+metadata/_edit_lock_ = true
+
+[node name="PaletteViewport" type="SubViewport" parent="."]
+size = Vector2i(7, 32)
+
+[node name="MarginContainer" type="MarginContainer" parent="PaletteViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Texture" type="TextureRect" parent="PaletteViewport/MarginContainer"]
+texture_filter = 1
+material = ExtResource("2_0xm2m")
+layout_mode = 2
+texture = SubResource("GradientTexture1D_h2yge")
+
+[node name="UI" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="PaletteDisplay" type="TextureRect" parent="UI"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+texture = SubResource("ViewportTexture_0xm2m")
+expand_mode = 1
+flip_v = true
+
+[node name="Colors" type="VBoxContainer" parent="UI"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/Colors"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Colors/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ColorRect" type="ColorRect" parent="UI/Colors/ScrollContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="AddColor" type="Button" parent="UI/Colors"]
+layout_mode = 2
+text = "Add color"
+
+[node name="Stuff" type="VBoxContainer" parent="UI"]
+layout_mode = 2
+
+[node name="ColorPicker" type="ColorPicker" parent="UI/Stuff"]
+layout_mode = 2
+edit_alpha = false
+color_mode = 1
+picker_shape = 1
+can_add_swatches = false
+sampler_visible = false
+presets_visible = false
+
+[node name="OverlayToggle" type="CheckButton" parent="UI/Stuff"]
+layout_mode = 2
+button_pressed = true
+text = "Autogradient"
+
+[node name="SaveImage" type="Button" parent="UI/Stuff"]
+layout_mode = 2
+text = "Save image"
